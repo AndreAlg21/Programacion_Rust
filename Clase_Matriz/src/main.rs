@@ -33,7 +33,7 @@ impl Matriz{
         self.celda[f][c] = valor;
     }
 
-    //Metodo para sumar todos los elementos de una matriz.
+    //Funcion para sumar todos los elementos de una matriz.
     fn suma(&self) ->u64{
         let mut suma = 0;
         for i in 0..self.nro_filas{
@@ -45,8 +45,21 @@ impl Matriz{
     }
     //Funcion para calcular el promedio de los elementos de una matriz
     fn promedio(&self)->f64{
-        let divi:f64=(self.nro_col*self.nro_filas )as f64;
+        let divi=(self.nro_col*self.nro_filas )as f64;
         self.suma() as f64 /divi
+    }
+
+    //Funcion que devuelva el elemento mayor de la matriz
+    fn mayor(&self)->u64{
+        let mut mayor:u64=self.celda[0][0];
+        for i in 0..self.nro_filas{
+            for j in 0..self.nro_col{
+                if self.celda[i][j]>mayor{
+                    mayor=self.celda[i][j];
+                }
+            }
+        }
+        mayor
     }
 
     //Metodo para contar los nros pares que tiene la matriz.
@@ -123,4 +136,5 @@ fn main() {
     println!("La cantidad de pares es: {}", m.cant_pares());
     println!("La cantidad de impares es: {}", m.impares());
     println!("El promedio de los elementos de la matriz es: {}",m.promedio());
+    println!("El mayor de todos los elemento de la matriz es: {}",m.mayor());
 }
