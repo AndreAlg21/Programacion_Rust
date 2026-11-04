@@ -62,6 +62,63 @@ impl Matriz{
         mayor
     }
 
+    //Funcion que sume los elementos de la diagonal principal
+    fn diag_pri(&self)->u64{
+        let mut suma=0;
+        for i in 0..self.nro_col{
+            suma+=self.celda[i][i];
+        }
+        suma
+    }
+    //Funcion que sume los elementos de la diagonal secundaria
+    fn diag_sec(&self)->u64{
+        let mut suma=0;
+        for i in 0..self.nro_col{
+            suma+=self.celda[self.nro_filas-1-i][i];
+        }
+        suma
+    }
+    //Funcion de sume lo elementos extremos de la matriz
+    fn suma_extremo(&self)->u64{
+        let mut suma=0;
+        let mut x=0;
+        let mut i=0;
+        let mut j=0;
+        while x<2 {
+        for c in 0..self.nro_col{
+            suma+=self.celda[i][c];
+        }
+        for f in 1..self.nro_filas-1{
+            suma+=self.celda[f][j];
+        }
+        x+=1;
+        i=self.nro_filas-1;
+        j=self.nro_col-1;
+    }
+        suma
+    }
+    // Función que suma los elementos extremos (borde) de la matriz
+fn suma_extremo2(&self) -> u64 {
+    let mut suma = 0;
+    for f in 0..self.nro_filas {
+        for c in 0..self.nro_col {
+            if f == 0 || f == self.nro_filas - 1 || c == 0 || c == self.nro_col - 1 {
+                suma += self.celda[f][c];
+            }
+        }
+    }
+    suma
+}
+//Funcion que suma los elementos internos
+fn suma_interno(&self) -> u64 {
+    let mut suma = 0;
+    for f in 1..self.nro_filas-1 {
+        for c in 1..self.nro_col-1 {
+                suma += self.celda[f][c];
+        }
+    }
+    suma
+}
     //Metodo para contar los nros pares que tiene la matriz.
     fn cant_pares(&self) ->u16{
         let mut pares = 0;
@@ -137,4 +194,9 @@ fn main() {
     println!("La cantidad de impares es: {}", m.impares());
     println!("El promedio de los elementos de la matriz es: {}",m.promedio());
     println!("El mayor de todos los elemento de la matriz es: {}",m.mayor());
+    println!("La suma de los elementos de la diagonal principal es: {}",m.diag_pri());
+    println!("La suma de los elementos de la diagonal secundaria es: {}",m.diag_sec());
+    println!("La suma de los elementos exteriores es: {}",m.suma_extremo());
+    println!("La suma de los elementos exteriores es: {}",m.suma_extremo2());
+    println!("La suma de los elementos internos es: {}",m.suma_interno());
 }
