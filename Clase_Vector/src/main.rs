@@ -118,6 +118,10 @@ impl Vector{
         }
     }
 }
+fn ordenar_descendente(&mut self) {
+    self.ordenar_ascendente();
+    self.elemento[..self.dimension].reverse();
+}
 
 fn ordenar_impares_pares(&mut self) {
     let mut v_impares = Vector { dimension: 0, elemento: [0; MAX] };
@@ -208,12 +212,60 @@ fn merge_div(&mut self,izq:usize,der:usize){
 }
 fn merge(&mut self,izq:usize,mitad:usize,der:usize){
     let mut vecizq:[u64;50]=[0_u64;50];
-    let mut vecder:[u64;50]=[0_u64;50];
-    let mut tamanho_izq=mitad-izq;
-    let mut tamanho_der=der-mitad+1;
+    let  vecder:[u64;50]=[0_u64;50];
+    let  tamanho_izq=mitad-izq;
+    let  tamanho_der=der-mitad+1;
     for i in 0..tamanho_izq{
         vecizq[i]=self.elemento[izq+i];
     }
+}
+//-----Practica Parcial-----
+fn es_primo(x:u64)->bool{
+    let mut c=0;
+    if x<2{
+        return false;
+    }else{
+    for i in 1..=x{
+        if (x%i)==0{
+            c+=1;
+        }
+        if c>2{
+            return false;
+        }
+    }
+}
+    true
+}
+
+
+//Ordenar los primos de forma ascencente y los no primos de forma descendente en un mismo vector
+fn ord_primo_ascend(&mut self){
+    let mut v1= Vector::new();
+    let mut v2= Vector::new();
+    for i in 0..self.dimension{
+        let numero=self.elemento[i];
+        if Self::es_primo(numero){
+            v1.add_element(numero);
+        }else{
+            v2.add_element(numero);
+        }
+    }
+        v1.ordenar_ascendente();
+        v2.ordenar_descendente();
+        let mut contador=0;
+        for j in 0..v1.dimension{
+            self.elemento[contador]=v1.elemento[j];
+            contador+=1;
+        }
+        for k in 0..v2.dimension{
+            self.elemento[contador]=v2.elemento[k];
+            contador+=1;
+        }
+    
+}
+//Cargar elemento en el vector de manera ordenada
+fn carga_ordenada(&mut self,a:u64,b:u64,c:u64,d:u64){
+    
 }
 
 
@@ -241,8 +293,13 @@ fn main() {
     println!("Hay un total de {} escalera(s)",v.cant_escalera());
     println!("----------------------");
     println!("-----Select Sort-----");
+    println!("----------------------------------------");
+    println!("Primos ascendentemente y no primos descendentemente");
+    v.ord_primo_ascend();
+    v.mostrar();
+    println!("----------------------------------------");
     let mut v1=v;
-    v1.burbuja();
+    v1.bubble_sort();
     v1.mostrar();
     /*let mut v1 = v;
     v1.ordenar_impares_pares();
